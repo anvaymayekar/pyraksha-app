@@ -123,20 +123,21 @@ class APIClient:
         complaint_id: str,
         title: str,
         description: str,
+        user_id: Optional[str] = None,
         latitude: Optional[float] = None,
         longitude: Optional[float] = None,
     ) -> Dict[str, Any]:
-        return self._make_request(
-            "/api/complaints/file",
-            "POST",
-            {
-                "complaint_id": complaint_id,
-                "title": title,
-                "description": description,
-                "latitude": latitude,
-                "longitude": longitude,
-            },
-        )
+        payload = {
+            "complaint_id": complaint_id,
+            "title": title,
+            "description": description,
+            "latitude": latitude,
+            "longitude": longitude,
+        }
+        if user_id:
+            payload["user_id"] = user_id  # send user_id to backend
+
+        return self._make_request("/api/complaints/file", "POST", payload)
 
     def get_complaints(self, status: Optional[str] = None) -> Dict[str, Any]:
         endpoint = "/api/complaints/list"

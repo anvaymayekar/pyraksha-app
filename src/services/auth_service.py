@@ -12,7 +12,7 @@ class AuthService:
 
     def __init__(self):
         self._storage = StorageService.get_instance()
-        self._api_client = APIClient.get_instance()
+        self._api_client = APIClient.get_instance(AppConfig.API_BASE_URL)
 
     @classmethod
     def get_instance(cls) -> "AuthService":
@@ -92,9 +92,10 @@ class AuthService:
 
         if response.get("success"):
             user_data = response.get("user")
+            token = response.get("token")  # get token from response
             if user_data:
                 user = User.from_dict(user_data)
-
+                user.token = token  # assign token after user is created
                 users = self._load_users()
                 existing_user = next(
                     (u for u in users if u.email.lower() == email.lower()), None
@@ -107,6 +108,9 @@ class AuthService:
                     users.append(user)
 
                 self._save_users(users)
+                if token:
+                    self._api_client.set_token(token)
+
                 return True, "Login successful", user
 
         user = self._find_user_by_email(email)

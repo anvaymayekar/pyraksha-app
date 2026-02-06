@@ -5,7 +5,7 @@ class AppConfig:
     APP_NAME = "PyRaksha"
     APP_VERSION = "1.0.0"
 
-    API_BASE_URL = "http://127.0.0.1:5000"
+    API_BASE_URL = "https://web-production-49b1b.up.railway.app"
     STORAGE_DIR = Path.home() / ".pyraksha"
     USERS_FILE = "users.json"
     COMPLAINTS_FILE = "complaints.json"
