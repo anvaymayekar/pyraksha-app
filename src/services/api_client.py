@@ -2,17 +2,18 @@ import json
 from typing import Optional, Dict, Any
 from urllib import request as urllib_request, error
 from src.utils.logger import Logger
+from src.config.app_config import AppConfig
 
 
 class APIClient:
     _instance: Optional["APIClient"] = None
 
-    def __init__(self, base_url: str = "http://localhost:5000"):
+    def __init__(self, base_url: str = AppConfig.API_BASE_URL):
         self.base_url = base_url
         self._token: Optional[str] = None
 
     @classmethod
-    def get_instance(cls, base_url: str = "http://localhost:5000") -> "APIClient":
+    def get_instance(cls, base_url: str = AppConfig.API_BASE_URL) -> "APIClient":
         if cls._instance is None:
             cls._instance = cls(base_url)
         return cls._instance

@@ -14,6 +14,7 @@ class User:
     created_at: Optional[datetime] = None
     last_login: Optional[datetime] = None
     is_active: Optional[bool] = True
+    password_hash: Optional[str] = None
 
     @classmethod
     def from_dict(cls, data: dict) -> "User":
@@ -38,6 +39,7 @@ class User:
             "created_at",
             "last_login",
             "is_active",
+            "password_hash",
         }
 
         clean_data = {k: v for k, v in data.items() if k in allowed_fields}
@@ -62,4 +64,5 @@ class User:
             "created_at": self.created_at.isoformat() if self.created_at else None,
             "last_login": self.last_login.isoformat() if self.last_login else None,
             "is_active": self.is_active,
+            "password_hash": self.password_hash,
         }

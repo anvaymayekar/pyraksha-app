@@ -1,0 +1,51 @@
+[tool.briefcase]
+project_name = "PyRaksha"
+bundle = "org.pyraksha"
+version = "1.0.1"
+description = "Personal safety app"
+author = "Your Name"
+license = "MIT"
+url = "https://yourwebsite.com"
+requires = ["kivy==2.3.0", "kivymd==1.2.0", "plyer==2.1.0", "pillow==10.3.0"]
+
+[tool.briefcase.app.pyraksha]
+formal_name = "PyRaksha"
+module = "src.pyraksha"
+icon = "assets/icon.png"
+splash = "assets/splash.png"
+sources = ["src", "assets"]
+version = "1.0.1"
+
+# Orientation
+orientation = "portrait"
+fullscreen = false
+
+# Android settings
+android_min_sdk = 21
+android_target_sdk = 31
+android_arch = "armeabi-v7a"
+
+# Permissions (closest equivalent)
+android_permissions = [
+    "INTERNET",
+    "ACCESS_FINE_LOCATION",
+    "ACCESS_COARSE_LOCATION",
+    "ACCESS_NETWORK_STATE",
+    "SEND_SMS",
+    "READ_PHONE_STATE",
+    "VIBRATE",
+    "WAKE_LOCK",
+    "FOREGROUND_SERVICE",
+    "POST_NOTIFICATIONS",
+    "RECEIVE_BOOT_COMPLETED"
+]
+
+# Background services (must be manually configured in Android code)
+# briefcase doesn't auto-handle Python services like Buildozer
+# You can still run Python threads in your app for SOS monitoring
+
+# Optional metadata
+# android_meta = { "com.google.android.geo.API_KEY" = "YOUR_API_KEY_HERE" }
+
+[tool.briefcase.android]
+gradle_template = "default"
