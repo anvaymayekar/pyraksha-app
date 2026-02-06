@@ -1,31 +1,32 @@
 """
-Background service for PyRaksha (Briefcase-compatible)
-Handles SOS triggers while the app is running
+Background service for PyRaksha
+SIMPLIFIED VERSION - No threading to avoid crashes
 """
 
-import threading
 import time
-from src.services.sos_service import SOSService
 
 
-def sos_background_loop():
+# Simple service that just logs
+# Advanced features disabled until app is stable
+def main():
     """
-    Runs continuously in the background to check for SOS triggers.
-    This only works while the app is open.
+    Background service entry point
+    This is called when the service starts
     """
-    sos_service = SOSService.get_instance()
+    print("PyRaksha background service started")
+
+    # Simple loop that does minimal work
+    # This prevents crashes from complex threading
     while True:
         try:
-            # Check for any active SOS events
-            active_sos = sos_service.get_active_sos()
-            if active_sos:
-                # You can trigger notifications or UI updates here
-                print("Active SOS detected!")
+            # Just sleep - don't do complex operations
+            # Real SOS monitoring will be handled by the main app
+            time.sleep(60)
+            print("Background service tick")
         except Exception as e:
-            print(f"Background SOS error: {e}")
-        time.sleep(60)  # Run every 60 seconds
+            print(f"Service error: {e}")
+            time.sleep(60)
 
 
-# Start the background thread as daemon
-threading.Thread(target=sos_background_loop, daemon=True).start()
-print("PyRaksha background thread started")
+if __name__ == "__main__":
+    main()
